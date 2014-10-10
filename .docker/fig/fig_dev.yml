@@ -1,0 +1,34 @@
+dbbigvasp:
+  image: paintedfox/postgresql
+  environment:
+    USER: bigvasp_admin
+    DB: bigvasp
+    PASS: bigvasppassword
+  ports:
+    - "5432:5432"
+  volumes:
+    - .:/webapp/bigvasp/
+    - /opt/databases/bigvasp/postgresql:/data
+bigvasp:
+  image: andresroot/bigvasp
+  working_dir: /webapp/bigvasp
+  command: /webapp/bigvasp/rundev.sh
+  volumes:
+    - .:/webapp/bigvasp/
+  environment:
+    OUTERIP: 192.168.0.15
+  ports:
+    - "8000:8000"
+    - "9000:9000"
+  links:
+    - dbbigvasp:db
+nginxbigvasp: 
+  image: shepmaster/nginx-template-image
+  ports:
+    - "8001:80"
+  volumes:
+    - .:/external_volumen
+    - ./static:/external_volumen_content/static/
+    - ./.docker/nginx_dev/sites-enabled:/etc/nginx/sites-templates
+  links:
+    - bigvasp:bigvasp

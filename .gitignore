@@ -1,0 +1,6 @@
+*.pyc
+venv
+fig.yml
+.docker/ssh/
+.docker/git/
+db.sqlite3

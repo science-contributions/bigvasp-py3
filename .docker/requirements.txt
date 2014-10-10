@@ -1,0 +1,12 @@
+Django==1.7
+djangorestframework
+markdown
+django-filter
+psycopg2
+Jinja2
+Pillow
+fig
+gunicorn
+ipdb
+ipython
+mock
